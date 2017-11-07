@@ -1,0 +1,16 @@
+{
+  "root": "./src",
+  "author": "Guang Yang",
+  "links": {
+    "sidebar": {
+      "arXiv": "https://arxiv.org/"
+    }
+  },
+  "plugins": [
+    "katex"
+  ],
+  "styles": {
+    "website": "css/website.css"
+  }
+}
+
