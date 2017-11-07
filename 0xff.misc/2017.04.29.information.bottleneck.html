@@ -1,0 +1,383 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>info.bottleneck · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Guang Yang">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../css/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://arxiv.org/" target="_blank" class="custom-link">arXiv</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        <li class="header">Overview</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Awesome Deep Learning Note
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Guide</li>
+        
+        
+    
+        <li class="chapter active" data-level="2.1" data-path="2017.04.29.information.bottleneck.html">
+            
+                <a href="2017.04.29.information.bottleneck.html">
+            
+                    
+                    info.bottleneck
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" >
+            
+                <a target="_blank" href="https://github.com/gyang274/">
+            
+                    
+                    yg
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >info.bottleneck</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="opening-the-black-box-of-deep-neural-networks-via-information">Opening the black box of Deep Neural networks via Information</h1>
+<h2 id="introduction">Introduction</h2>
+<h3 id="information-theory">Information Theory</h3>
+<h4 id="entropy">Entropy</h4>
+<ul>
+<li><p>Information entropy <code>H(X)</code> is defined as the average amount of information produced by a probabilistic stochastic source of data.</p>
+<pre><code>H(X) = E[I(X)] = E[-ln(P(X))]
+</code></pre></li>
+<li><p>Joint infomration entropy <code>H(X, Y)</code></p>
+<pre><code>H(X,Y) = E[I(X,Y)] = E[-ln(P(X,Y))]
+</code></pre></li>
+<li><p>Conditional entropy <code>H(Y|X)</code> quantifies the amount of information needed to describe the outcome of a random variable <code>Y</code> given that the value of another random variable <code>X</code> is known.</p>
+<pre><code>H(Y|X) = H(X,Y) - H(X)
+</code></pre></li>
+<li><p>Mutual Information <code>I(X,Y)</code> is a measure of the mutual dependence between the two variables. More specifically, it quantifies the &quot;amount of information&quot; (in units such as shannons, more commonly called bits) obtained about one random variable, through the other random variable.</p>
+<pre><code>I(X,Y) = H(X) - H(X|Y)
+       = H(Y) - H(Y|X)
+       = H(X) + H(Y) - H(X,Y)
+       = H(X,Y) - H(X|Y) - H(Y|X)
+</code></pre></li>
+<li><p>Summary</p>
+</li>
+</ul>
+<p><img src="2017.04.29.information.bottleneck/mutual-information-relative-entropy-relation-diagram.svg" alt=""></p>
+<h4 id="information-inequality">Information Inequality</h4>
+<ul>
+<li>Jensen&apos;s Inequality</li>
+</ul>
+<p>Let <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo separator="true">,</mo><mi>g</mi><mo>:</mo><mrow><mi mathvariant="double-struck">R</mi></mrow><mo>&#x2192;</mo><mrow><mi mathvariant="double-struck">R</mi></mrow></mrow><annotation encoding="application/x-tex">f,g:\mathbb{R} \to \mathbb{R}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mrel">:</span><span class="mord textstyle uncramped"><span class="mord mathbb">R</span></span><span class="mrel">&#x2192;</span><span class="mord textstyle uncramped"><span class="mord mathbb">R</span></span></span></span></span> with <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mo>&#x22C5;</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">f(\cdot)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord">&#x22C5;</span><span class="mclose">)</span></span></span></span> convex, then <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mo>[</mo><mi>f</mi><mo>(</mo><mi>g</mi><mo>(</mo><mi>X</mi><mo>)</mo><mo>)</mo><mo>]</mo><mo>&#x2265;</mo><mi>f</mi><mo>(</mo><mi>E</mi><mo>[</mo><mi>g</mi><mo>(</mo><mi>X</mi><mo>)</mo><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">E[f(g(X))] \ge f (E[g(X)])</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">]</span><span class="mrel">&#x2265;</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span>.</p>
+<ul>
+<li>The Kullback&#x2013;Leibler divergence (also called relative entropy) is a measure of how one probability distribution diverges from a second, expected probability distribution.</li>
+</ul>
+<p>KL divergence from Q to P</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>D</mi><mi>K</mi></msub><mi>L</mi><mo>(</mo><mi>P</mi><mi mathvariant="normal">&#x2223;</mi><mi mathvariant="normal">&#x2223;</mi><mi>Q</mi><mo>)</mo><mo>=</mo><mstyle scriptlevel="0" displaystyle="true"><msubsup><mo>&#x222B;</mo><mrow><mo>&#x2212;</mo><mi mathvariant="normal">&#x221E;</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">&#x221E;</mi></mrow></msubsup><mo>&#x2212;</mo><mi>p</mi><mo>(</mo><mi>x</mi><mo>)</mo><mi>log</mi><mfrac><mrow><mi>q</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mrow><mi>p</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mfrac></mstyle></mrow><annotation encoding="application/x-tex">D_KL(P||Q) = \displaystyle \int_{-\infty}^{+\infty} -p(x) \log \frac{q(x)}{p(x)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.427em;"></span><span class="strut bottom" style="height:2.397581em;vertical-align:-0.970581em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.07153em;">K</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord mathit">L</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mord mathrm">&#x2223;</span><span class="mord mathrm">&#x2223;</span><span class="mord mathit">Q</span><span class="mclose">)</span><span class="mrel">=</span><span class="mop reset-textstyle displaystyle textstyle uncramped"><span class="mop op-symbol large-op" style="margin-right:0.44445em;top:-0.0011249999999999316em;">&#x222B;</span><span class="msupsub"><span class="vlist"><span style="top:0.91225em;margin-left:-0.44445em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mtight">&#x2212;</span><span class="mord mathrm mtight">&#x221E;</span></span></span></span><span style="top:-0.9740000000000001em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle uncramped mtight"><span class="mord scriptstyle uncramped mtight"><span class="mord mtight">+</span><span class="mord mathrm mtight">&#x221E;</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord reset-textstyle displaystyle textstyle uncramped">&#x2212;</span><span class="mord mathit reset-textstyle displaystyle textstyle uncramped">p</span><span class="mopen reset-textstyle displaystyle textstyle uncramped">(</span><span class="mord mathit reset-textstyle displaystyle textstyle uncramped">x</span><span class="mclose reset-textstyle displaystyle textstyle uncramped">)</span><span class="mop reset-textstyle displaystyle textstyle uncramped">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="mopen sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathit">p</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span><span style="top:-0.2300000000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span><span class="mclose sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></p>
+<p>The Kullback&#x2013;Leibler divergence can be interpreted as the expected extra message-length per datum that must be communicated if a code that is optimal for a given (wrong) distribution Q is used, compared to using a code based on the true distribution P.</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>D</mi><mi>K</mi></msub><mi>L</mi><mo>(</mo><mi>P</mi><mi mathvariant="normal">&#x2223;</mi><mi mathvariant="normal">&#x2223;</mi><mi>Q</mi><mo>)</mo><mo>=</mo><mi>H</mi><mo>(</mo><mi>P</mi><mo separator="true">,</mo><mi>Q</mi><mo>)</mo><mo>&#x2212;</mo><mi>H</mi><mo>(</mo><mi>P</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">D_KL(P||Q) = H(P,Q) - H(P)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.07153em;">K</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord mathit">L</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mord mathrm">&#x2223;</span><span class="mord mathrm">&#x2223;</span><span class="mord mathit">Q</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mpunct">,</span><span class="mord mathit">Q</span><span class="mclose">)</span><span class="mbin">&#x2212;</span><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mclose">)</span></span></span></span>, where H(P,Q) is the cross entropy of P and Q, and H(P) is the entropy of P.</p>
+<ul>
+<li><p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>D</mi><mi>K</mi></msub><mi>L</mi><mo>(</mo><mi>P</mi><mi mathvariant="normal">&#x2223;</mi><mi mathvariant="normal">&#x2223;</mi><mi>Q</mi><mo>)</mo><mo>&#x2265;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">D_KL(P||Q) \ge 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.07153em;">K</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord mathit">L</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mord mathrm">&#x2223;</span><span class="mord mathrm">&#x2223;</span><span class="mord mathit">Q</span><span class="mclose">)</span><span class="mrel">&#x2265;</span><span class="mord mathrm">0</span></span></span></span> </p>
+</li>
+<li><p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mo>(</mo><mi>X</mi><mo separator="true">,</mo><mi>Y</mi><mo>)</mo><mo>=</mo><msub><mi>D</mi><mi>K</mi></msub><mi>L</mi><mo>(</mo><mi>p</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo><mi mathvariant="normal">&#x2223;</mi><mi mathvariant="normal">&#x2223;</mi><mi>p</mi><mo>(</mo><mi>x</mi><mo>)</mo><mi>p</mi><mo>(</mo><mi>y</mi><mo>)</mo><mo>)</mo><mo>&#x2265;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">I(X,Y) = D_KL(p(x,y)||p(x)p(y)) \ge 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.07153em;">K</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mord mathit">L</span><span class="mopen">(</span><span class="mord mathit">p</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mord mathrm">&#x2223;</span><span class="mord mathrm">&#x2223;</span><span class="mord mathit">p</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mord mathit">p</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mclose">)</span><span class="mrel">&#x2265;</span><span class="mord mathrm">0</span></span></span></span></p>
+</li>
+<li><p>Data Processing Inequality (DPI):</p>
+<p>For any 3 variables that form a Markov chain <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi><mo>&#x2192;</mo><mi>Y</mi><mo>&#x2192;</mo><mi>Z</mi><mo separator="true">,</mo><mi>I</mi><mo>(</mo><mi>X</mi><mo separator="true">,</mo><mi>Y</mi><mo>)</mo><mo>&#x2265;</mo><mi>I</mi><mo>(</mo><mi>X</mi><mo separator="true">,</mo><mi>Z</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">X \rightarrow Y \rightarrow Z, I(X,Y) \ge I(X,Z)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mrel">&#x2192;</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="mrel">&#x2192;</span><span class="mord mathit" style="margin-right:0.07153em;">Z</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span><span class="mrel">&#x2265;</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.07153em;">Z</span><span class="mclose">)</span></span></span></span>.</p>
+</li>
+</ul>
+<h2 id="key-note">Key Note</h2>
+<ul>
+<li><p><img src="figure1" alt=""> [Figure1 in paper]</p>
+<ul>
+<li><p>view layered neural networks as a Markov chain of successive representations of the input layer</p>
+</li>
+<li><p>charateristic the network layers on the Information Plane - the plane of the Mutual Information values of any other variable with the input variable X and desired output variable Y</p>
+</li>
+<li><p>layer matters, rather than single neuron in a layer.</p>
+</li>
+</ul>
+</li>
+<li><p><img src="figure2" alt="Figure4 in paper"> [Figure4 in paper]</p>
+</li>
+</ul>
+<p>Two different and distinct phases in Stochastic Gradient Decent
+(SGD) optimization, commonly used in Deep Learning</p>
+<ul>
+<li><p>1st phase (~350 epochs): empirical error minimization (ERM)</p>
+<ul>
+<li>drift phase, gradient mean &gt;&gt; standard deviations, high signal noise ratio (SNR)</li>
+</ul>
+</li>
+<li><p>2nd phase: representation compression</p>
+<ul>
+<li><p>diffusion phase, gradient mean &lt;&lt; batch fluctuation, low signal noise ratio (SNR)</p>
+</li>
+<li><p>maximize the conditional entropy <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>(</mo><mi>X</mi><mi mathvariant="normal">&#x2223;</mi><msub><mi>T</mi><mi>i</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">H(X|T_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mord mathrm">&#x2223;</span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span></span></span></span>, or equivalently, minimize the mutual information <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mo>(</mo><mi>X</mi><mo separator="true">,</mo><msub><mi>T</mi><mi>i</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">I(X, T_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span></span></span></span>, by additive noise, a.k.a stochastic relaxation, constrained by the empirical error.</p>
+</li>
+</ul>
+</li>
+<li><p>Keep training even when error rate is low and stable -&gt; better generalization.</p>
+</li>
+<li><p><a href="https://www.youtube.com/watch?v=bLqJHjXihK8" target="_blank">Video</a> 13:46</p>
+</li>
+</ul>
+<ul>
+<li><img src="figure3" alt="Figure5 in paper"> [Figure5 in paper]</li>
+</ul>
+<p>The benefit of the hidden layers</p>
+<ul>
+<li><p>Adding hidden layers dramatically reduces the number of training epochs for good generalization.</p>
+</li>
+<li><p>The optimization time depend super-linearly (exponentially?) of the compressed information <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">&#x394;</mi><msub><mi>I</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">\Delta I_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">&#x394;</span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07847em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight">x</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> for each layer.</p>
+<ul>
+<li><p>The compression phase of each layer is shorter when it starts from a previous compressed layer.</p>
+</li>
+<li><p>The compression is faster for the deeper (narrower and closer to the output) layers.</p>
+</li>
+</ul>
+</li>
+<li><p>Even wide hidden layers eventually compress in the diffusion phase. Adding extra width does not help.</p>
+</li>
+</ul>
+<ul>
+<li><img src="figure4" alt="Figure7 in paper"> [Figure7 in paper]</li>
+</ul>
+<p>The effect of the training data size on the layers in the information plane.</p>
+<ul>
+<li><p>As expected, with increasing training size the layers&#x2019; true label information (generalization) I Y is pushed up and gets closer to the theoretical IB bound for the rule distribution.</p>
+</li>
+<li><p>The layers converge to specific points on the finite sample information curves, which can be calculated using the IB self-consistent equations [Eq9 in paper].</p>
+</li>
+<li><p>In the lower layers, the training size hardly changes the information at all, since even random weights keep most of the mutual information on both X and Y. </p>
+</li>
+<li><p>However, for the deeper layers the network learns to preserve more of the information on Y and better compress the irrelevant information in X. With larger training samples more details on X become relevant for Y and we there is a shift to higher <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mi>X</mi></msub></mrow><annotation encoding="application/x-tex">I_X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07847em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathit mtight" style="margin-right:0.07847em;">X</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> in the middle layers. </p>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Awesome Deep Learning Note">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"info.bottleneck","level":"2.1","depth":1,"next":{"title":"yg","level":"3.1","depth":1,"url":"https://github.com/gyang274/","ref":"https://github.com/gyang274/","articles":[]},"previous":{"title":"Awesome Deep Learning Note","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["katex"],"root":"./src","styles":{"website":"css/website.css"},"pluginsConfig":{"katex":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Guang Yang","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"links":{"sidebar":{"arXiv":"https://arxiv.org/"}},"gitbook":"*"},"file":{"path":"0xff.misc/2017.04.29.information.bottleneck.md","mtime":"2017-11-07T21:01:16.451Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-11-07T21:01:42.384Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
